@@ -1,11 +1,3 @@
-using System.Net;
-
-using Octokit;
-
-using SunamoOctokit.Interfaces;
-
-using SunamoShared.Data;
-
 namespace SunamoOctokit;
 
 public class OctokitHelper : IAuthentize<object>
