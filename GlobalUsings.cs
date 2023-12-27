@@ -1,4 +1,5 @@
-﻿global using Octokit;
+
+global using Octokit;
 global using SunamoOctokit.Interfaces;
 
 global using System.Collections.Generic;
