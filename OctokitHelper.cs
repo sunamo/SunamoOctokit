@@ -19,8 +19,8 @@ public class OctokitHelper : IAuthentize<object>
     }
 
     public
-IAuthentize<object>
-        Init(string appName)
+    IAuthentize<object>
+    Init(string appName)
     {
         github = new GitHubClient(new ProductHeaderValue(appName));
 
@@ -43,15 +43,15 @@ IAuthentize<object>
 #if ASYNC
     async Task<IReadOnlyList<Repository>>
 #else
-    void  
+void
 #endif
-        GetAccountRepos(string account)
+    GetAccountRepos(string account)
     {
         var repos =
 #if ASYNC
-    await
+        await
 #endif
-            github.Repository.GetAllForUser(account);
+        github.Repository.GetAllForUser(account);
         return repos;
     }
 
@@ -59,7 +59,7 @@ IAuthentize<object>
     {
         Repository created = null;
 
-        // Create 
+        // Create
         try
         {
             var repository = new NewRepository(repoName)
