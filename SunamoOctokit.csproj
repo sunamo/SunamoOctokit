@@ -2,12 +2,12 @@
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
-    <Version>24.1.7.1</Version>
-	  <Description>Wrapper around Octokit library</Description>
+    <Version>24.1.10.2</Version>
+    <Description>Wrapper around Octokit library</Description>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="Octokit" Version="9.1.0" />
-    <PackageReference Include="SunamoExceptions" Version="24.1.5.1" />
+    <PackageReference Include="SunamoExceptions" Version="24.1.11.1" />
   </ItemGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <DefineConstants>$(DefineConstants);ASYNC</DefineConstants>

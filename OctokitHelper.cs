@@ -2,7 +2,7 @@ namespace SunamoOctokit;
 
 public class OctokitHelper : IAuthentize<object>
 {
-    private GitHubClient github;
+    public GitHubClient github;
 
 
     public object BasicAuth(string login, string password)
@@ -38,7 +38,6 @@ public class OctokitHelper : IAuthentize<object>
         //}
         return this;
     }
-
     public
 #if ASYNC
     async Task<IReadOnlyList<Repository>>
