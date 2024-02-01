@@ -34,7 +34,7 @@ public class OctokitHelper : IAuthentize<object>
         //}
         //else
         //{
-        //    ThrowEx.Custom("Can't authentize, was not entered basic auth and token");
+        //    throw new Exception("Can't authentize, was not entered basic auth and token");
         //}
         return this;
     }
