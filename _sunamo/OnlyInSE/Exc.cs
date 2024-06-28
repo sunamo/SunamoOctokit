@@ -1,3 +1,5 @@
+
+namespace SunamoOctokit;
 using System.Diagnostics;
 using System.Text;
 

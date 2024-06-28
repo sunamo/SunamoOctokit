@@ -1,3 +1,5 @@
+
+namespace SunamoOctokit;
 public class TranslateAble
 {
     
