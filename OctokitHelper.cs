@@ -54,7 +54,7 @@ void
         return repos;
     }
 
-    public ResultWithException<Repository> CreateNewRepo(string repoName)
+    public ResultWithExceptionOctokit<Repository> CreateNewRepo(string repoName)
     {
         Repository created = null;
 
@@ -70,12 +70,12 @@ void
             };
             var context = github.Repository.Create(repository);
             created = context.Result;
-            return new ResultWithException<Repository>(created);
+            return new ResultWithExceptionOctokit<Repository>(created);
 
         }
         catch (AggregateException e)
         {
-            return new ResultWithException<Repository>(Exceptions.TextOfExceptions(e));
+            return new ResultWithExceptionOctokit<Repository>(Exceptions.TextOfExceptions(e));
             //Console.WriteLine($"E: For some reason, the repository {RepositoryName}  can't be created. It may already exist. {e.Message}");
         }
     }

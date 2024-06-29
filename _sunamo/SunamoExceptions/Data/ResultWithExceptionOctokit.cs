@@ -1,7 +1,7 @@
 namespace SunamoOctokit;
 
 
-internal class ResultWithException<T>
+public class ResultWithExceptionOctokit<T>
 {
     internal T Data { get; set; }
     /// <summary>
@@ -9,22 +9,22 @@ internal class ResultWithException<T>
     ///     Usage: FubuCsprojFile
     /// </summary>
     internal string exc { get; set; }
-    internal ResultWithException(T data)
+    internal ResultWithExceptionOctokit(T data)
     {
         Data = data;
     }
-    internal ResultWithException(string exc)
+    internal ResultWithExceptionOctokit(string exc)
     {
         this.exc = exc;
     }
-    internal ResultWithException(Exception exc)
+    internal ResultWithExceptionOctokit(Exception exc)
     {
         this.exc = Exceptions.TextOfExceptions(exc);
     }
     /// <summary>
     /// Pro případ že data josu string což je typ i exception
     /// </summary>
-    internal ResultWithException()
+    internal ResultWithExceptionOctokit()
     {
     }
 }
