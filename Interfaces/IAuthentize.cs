@@ -1,4 +1,4 @@
-namespace SunamoOctokit;
+namespace SunamoOctokit.Interfaces;
 
 public interface IAuthentize<T>
 {

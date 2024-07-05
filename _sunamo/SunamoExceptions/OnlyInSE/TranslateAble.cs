@@ -1,5 +1,5 @@
 
-namespace SunamoOctokit;
+namespace SunamoOctokit._sunamo.SunamoExceptions.OnlyInSE;
 internal class TranslateAble
 {
     

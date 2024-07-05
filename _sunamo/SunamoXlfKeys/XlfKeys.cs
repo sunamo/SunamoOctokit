@@ -1,4 +1,4 @@
-namespace SunamoOctokit;
+namespace SunamoOctokit._sunamo.SunamoXlfKeys;
 
 
 

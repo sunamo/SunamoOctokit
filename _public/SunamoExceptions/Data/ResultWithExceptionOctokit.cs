@@ -1,4 +1,4 @@
-namespace SunamoOctokit;
+namespace SunamoOctokit._public.SunamoExceptions.Data;
 
 
 public class ResultWithExceptionOctokit<T>
