@@ -1,4 +1,3 @@
-
 namespace SunamoOctokit._sunamo.SunamoExceptions.OnlyInSE;
 internal class ThrowEx
 {

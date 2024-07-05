@@ -17,3 +17,5 @@ global using SunamoOctokit._sunamo.SunamoXlfKeys;
 global using SunamoOctokit._public.SunamoExceptions.Data;
 global using SunamoOctokit._sunamo.SunamoExceptions.OnlyInSE;
 global using SunamoOctokit._sunamo.SunamoExceptions._AddedToAllCsproj;
+global using System.Diagnostics;
+global using System.Net;

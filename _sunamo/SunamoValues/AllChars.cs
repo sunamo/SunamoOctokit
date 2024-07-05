@@ -1,4 +1,3 @@
-
 namespace SunamoOctokit._sunamo.SunamoValues;
 internal class AllChars
 {
