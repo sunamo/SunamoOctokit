@@ -1,4 +1,4 @@
-//namespace SunamoOctokit._sunamo.SunamoExceptions._AddedToAllCsproj;
+namespace SunamoOctokit._sunamo;
 
 internal class SH
 {
