@@ -19,8 +19,8 @@ public class OctokitHelper : IAuthentize<object>
     }
 
     public
-    IAuthentize<object>
-    Init(string appName)
+        IAuthentize<object>
+        Init(string appName)
     {
         github = new GitHubClient(new ProductHeaderValue(appName));
 
@@ -38,19 +38,20 @@ public class OctokitHelper : IAuthentize<object>
         //}
         return this;
     }
+
     public
 #if ASYNC
-    async Task<IReadOnlyList<Repository>>
+        async Task<IReadOnlyList<Repository>>
 #else
 void
 #endif
-    GetAccountRepos(string account)
+        GetAccountRepos(string account)
     {
         var repos =
 #if ASYNC
-        await
+            await
 #endif
-        github.Repository.GetAllForUser(account);
+                github.Repository.GetAllForUser(account);
         return repos;
     }
 
@@ -71,7 +72,6 @@ void
             var context = github.Repository.Create(repository);
             created = context.Result;
             return new ResultWithExceptionOctokit<Repository>(created);
-
         }
         catch (AggregateException e)
         {
@@ -79,6 +79,4 @@ void
             //Console.WriteLine($"E: For some reason, the repository {RepositoryName}  can't be created. It may already exist. {e.Message}");
         }
     }
-
-
 }
