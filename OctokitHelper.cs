@@ -1,6 +1,5 @@
-using SunamoOctokit._public;
-
 namespace SunamoOctokit;
+using SunamoOctokit._public;
 
 public class OctokitHelper : IAuthentize<object>
 {
