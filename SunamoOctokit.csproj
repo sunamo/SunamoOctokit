@@ -2,7 +2,7 @@
   <PropertyGroup>
     <TargetFramework>net9.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
-    <Version>24.11.11.1</Version>
+    <Version>24.12.5.1</Version>
     <Description>Wrapper around Octokit library</Description>
     <Authors>www.sunamo.cz</Authors>
     <Copyright>www.sunamo.cz</Copyright>
@@ -12,10 +12,10 @@
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageReadmeFile>readme.md</PackageReadmeFile>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
-    <PackageReleaseNotes>Fix empty string for spaces</PackageReleaseNotes>
+    <PackageReleaseNotes>Updated nuget packages to secured versions</PackageReleaseNotes>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="Octokit" Version="9.1.2" />
+    <PackageReference Include="Octokit" Version="13.0.1" />
     <None Include="readme.md" Pack="True" PackagePath="." />
   </ItemGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
