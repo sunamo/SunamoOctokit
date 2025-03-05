@@ -1,37 +1,29 @@
 namespace SunamoOctokit;
-using SunamoOctokit._public;
 
 public class OctokitHelper : IAuthentize<object>
 {
     public GitHubClient github;
-
-
     public object BasicAuth(string login, string password)
     {
         var basicAuth = new Credentials(login, password);
         github.Credentials = basicAuth;
         return null;
     }
-
     public object TokenAuth(string token)
     {
         github.Credentials = new Credentials(token);
         return null;
     }
-
     public
         IAuthentize<object>
         Init(string appName)
     {
         github = new GitHubClient(new ProductHeaderValue(appName));
-
         //if (credentials.Login != null)
         //{
-
         //}
         //else if (credentials.Token != null)
         //{
-
         //}
         //else
         //{
@@ -39,7 +31,6 @@ public class OctokitHelper : IAuthentize<object>
         //}
         return this;
     }
-
     public
 #if ASYNC
         async Task<IReadOnlyList<Repository>>
@@ -55,11 +46,9 @@ void
                 github.Repository.GetAllForUser(account);
         return repos;
     }
-
     public ResultWithExceptionOctokit<Repository> CreateNewRepo(string repoName)
     {
         Repository created = null;
-
         // Create
         try
         {
