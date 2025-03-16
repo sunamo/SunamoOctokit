@@ -31,19 +31,34 @@ public class OctokitHelper : IAuthentize<object>
         //}
         return this;
     }
+
+    /// <summary>
+    /// When alsoPrivate, account is ignored
+    /// </summary>
+    /// <param name="account"></param>
+    /// <returns></returns>
     public
 #if ASYNC
         async Task<IReadOnlyList<Repository>>
 #else
 void
 #endif
-        GetAccountRepos(string account)
+        GetAccountRepos(string account, bool alsoPrivate)
     {
-        var repos =
+        IReadOnlyList<Repository> repos = [];
+
+        if (alsoPrivate)
+        {
+            repos =
 #if ASYNC
             await
 #endif
                 github.Repository.GetAllForUser(account);
+        }
+        else
+        {
+            repos = await github.Repository.GetAllForCurrent();
+        }
         return repos;
     }
     public ResultWithExceptionOctokit<Repository> CreateNewRepo(string repoName)
