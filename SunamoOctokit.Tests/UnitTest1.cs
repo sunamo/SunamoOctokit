@@ -1,9 +1,9 @@
 namespace SunamoOctokit.Tests;
 
-[TestClass]
+
 public class OctokitHelperTests
 {
-    [TestMethod]
+    [Fact]
     public void CreateNewRepoTest()
     {
         OctokitHelper h = new OctokitHelper();

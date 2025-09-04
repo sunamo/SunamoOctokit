@@ -1,24 +1,25 @@
+// Instance variables refactored according to C# conventions
 namespace SunamoOctokit;
 
 public class OctokitHelper : IAuthentize<object>
 {
-    public GitHubClient github;
+    public GitHubClient gitHubClient;
     public object BasicAuth(string login, string password)
     {
         var basicAuth = new Credentials(login, password);
-        github.Credentials = basicAuth;
+        gitHubClient.Credentials = basicAuth;
         return null;
     }
     public object TokenAuth(string token)
     {
-        github.Credentials = new Credentials(token);
+        gitHubClient.Credentials = new Credentials(token);
         return null;
     }
     public
         IAuthentize<object>
         Init(string appName)
     {
-        github = new GitHubClient(new ProductHeaderValue(appName));
+        gitHubClient = new GitHubClient(new ProductHeaderValue(appName));
         //if (credentials.Login != null)
         //{
         //}
@@ -53,11 +54,11 @@ void
 #if ASYNC
             await
 #endif
-                github.Repository.GetAllForUser(account);
+                gitHubClient.Repository.GetAllForUser(account);
         }
         else
         {
-            repos = await github.Repository.GetAllForCurrent();
+            repos = await gitHubClient.Repository.GetAllForCurrent();
         }
         return repos;
     }
@@ -74,7 +75,7 @@ void
                 LicenseTemplate = "mit",
                 Private = false
             };
-            var context = github.Repository.Create(repository);
+            var context = gitHubClient.Repository.Create(repository);
             created = context.Result;
             return new ResultWithExceptionOctokit<Repository>(created);
         }

@@ -1,3 +1,4 @@
+// Instance variables refactored according to C# conventions
 namespace SunamoOctokit._public;
 
 
@@ -8,18 +9,18 @@ public class ResultWithExceptionOctokit<T>
 
 
 
-    public string exc { get; set; }
+    public string exception { get; set; }
     public ResultWithExceptionOctokit(T data)
     {
         Data = data;
     }
     public ResultWithExceptionOctokit(string exc)
     {
-        this.exc = exc;
+        this.exception = exc;
     }
     public ResultWithExceptionOctokit(Exception exc)
     {
-        this.exc = Exceptions.TextOfExceptions(exc);
+        this.exception = Exceptions.TextOfExceptions(exc);
     }
 
 
