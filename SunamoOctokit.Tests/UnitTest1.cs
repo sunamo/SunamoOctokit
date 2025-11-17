@@ -1,9 +1,11 @@
 namespace SunamoOctokit.Tests;
 
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
+[TestClass]
 public class OctokitHelperTests
 {
-    [Fact]
+    [TestMethod]
     public void CreateNewRepoTest()
     {
         OctokitHelper h = new OctokitHelper();
@@ -19,15 +21,15 @@ GitHub Apps https://github.com/settings/apps
         h.Init("ConsoleApp1").TokenAuth("TOKEN");
 
         var result = h.CreateNewRepo("SunamoCsproj");
-        if (result.exc != null)
+        if (result.exception != null)
         {
-            // josu data
+            // je chyba
 
 
         }
         else
         {
-            // je chyba
+            // josu data
 
         }
 
