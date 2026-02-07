@@ -1,0 +1,5 @@
+<Solution>
+  <Project Path="SunamoOctokit.Tests\\SunamoOctokit.Tests.csproj" />
+  <Project Path="RunnerOctokit\\RunnerOctokit.csproj" />
+  <Project Path="SunamoOctokit\SunamoOctokit.csproj" />
+</Solution>
