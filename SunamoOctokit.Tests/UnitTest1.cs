@@ -1,37 +1,72 @@
 namespace SunamoOctokit.Tests;
 
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Octokit;
 
+/// <summary>
+/// Unit tests for <see cref="OctokitHelper"/> class.
+/// </summary>
 [TestClass]
 public class OctokitHelperTests
 {
+    /// <summary>
+    /// Tests that Initialize creates a valid GitHubClient instance.
+    /// </summary>
     [TestMethod]
-    public void CreateNewRepoTest()
+    public void InitializeCreatesGitHubClientTest()
     {
-        OctokitHelper h = new OctokitHelper();
-        /*
-Zde se registruje nov� app https://github.com/settings/apps/new
-OAUth apps https://github.com/settings/developers
-GitHub Apps https://github.com/settings/apps
+        var octokitHelper = new OctokitHelper();
+        octokitHelper.Initialize("TestApp");
+        Assert.IsNotNull(octokitHelper.GitHubClient);
+    }
 
-        Proto se mo�n� mus� jmenovat ConsoleApp1
+    /// <summary>
+    /// Tests that BasicAuthenticate sets credentials on the GitHubClient.
+    /// </summary>
+    [TestMethod]
+    public void BasicAuthenticateSetsCredentialsTest()
+    {
+        var octokitHelper = new OctokitHelper();
+        octokitHelper.Initialize("TestApp");
+        octokitHelper.BasicAuthenticate("testuser", "testpassword");
+        Assert.IsNotNull(octokitHelper.GitHubClient.Credentials);
+        Assert.AreEqual(AuthenticationType.Basic, octokitHelper.GitHubClient.Credentials.AuthenticationType);
+    }
 
+    /// <summary>
+    /// Tests that TokenAuthenticate sets credentials on the GitHubClient.
+    /// </summary>
+    [TestMethod]
+    public void TokenAuthenticateSetsCredentialsTest()
+    {
+        var octokitHelper = new OctokitHelper();
+        octokitHelper.Initialize("TestApp");
+        octokitHelper.TokenAuthenticate("test-token");
+        Assert.IsNotNull(octokitHelper.GitHubClient.Credentials);
+        Assert.AreEqual(AuthenticationType.Oauth, octokitHelper.GitHubClient.Credentials.AuthenticationType);
+    }
 
-        */
-        h.Init("ConsoleApp1").TokenAuth("TOKEN");
+    /// <summary>
+    /// Tests that Initialize returns the instance for method chaining.
+    /// </summary>
+    [TestMethod]
+    public void InitializeReturnsSelfForChainingTest()
+    {
+        var octokitHelper = new OctokitHelper();
+        var authenticator = octokitHelper.Initialize("TestApp");
+        Assert.IsNotNull(authenticator);
+    }
 
-        var result = h.CreateNewRepo("SunamoCsproj");
-        if (result.exception != null)
-        {
-            // je chyba
-
-
-        }
-        else
-        {
-            // josu data
-
-        }
-
+    /// <summary>
+    /// Tests that CreateRepository without authentication returns an exception result.
+    /// </summary>
+    [TestMethod]
+    public void CreateRepositoryWithoutAuthReturnsExceptionTest()
+    {
+        var octokitHelper = new OctokitHelper();
+        octokitHelper.Initialize("TestApp");
+        var result = octokitHelper.CreateRepository("TestRepo");
+        Assert.IsNotNull(result.ExceptionText);
+        Assert.IsNull(result.Data);
     }
 }

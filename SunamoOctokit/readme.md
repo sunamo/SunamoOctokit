@@ -1,20 +1,38 @@
 ### SunamoOctokit
 
-Part of PlatformIndependentNuGetPackages:
+A .NET wrapper around the [Octokit](https://github.com/octokit/octokit.net) library providing simplified GitHub API access with authentication helpers and repository management.
 
-- [nuget.org](https://www.nuget.org/profiles/sunamo)
-- [github.org](https://github.com/sunamo/PlatformIndependentNuGetPackages)
+## Features
 
-Another links:
+- Basic credentials and token-based authentication
+- Repository listing and creation
+- Result wrapper with exception handling
 
+## Usage
+
+```csharp
+var helper = new OctokitHelper();
+helper.Initialize("MyApp").TokenAuthenticate("your-token");
+
+// List repositories
+var repositories = await helper.GetAccountRepositories("username", isIncludingPrivate: false);
+
+// Create a repository
+var result = helper.CreateRepository("NewRepoName");
+if (result.ExceptionText != null)
+{
+    Console.WriteLine($"Error: {result.ExceptionText}");
+}
+```
+
+## Links
+
+- [NuGet](https://www.nuget.org/profiles/sunamo)
+- [GitHub](https://github.com/sunamo/PlatformIndependentNuGetPackages)
 - [Developer site](https://sunamo.cz)
 
-Request for new features / bug report / etc: [Mail](mailto:radek.jancik@sunamo.cz) or on GitHub
 ## Target Frameworks
 
 **TargetFrameworks:** `net10.0;net9.0;net8.0`
 
-**Reason:** Code uses C# 12.0 features (collection expressions, primary constructors) or dependencies requiring .NET 8.0+:
-- Collection expressions `[]` syntax requires C# 12.0 (net8.0+)
-- Primary constructors require C# 12.0 (net8.0+) 
-- Entity Framework Core 9.x requires net8.0+
+Request for new features / bug report / etc: [Mail](mailto:radek.jancik@sunamo.cz) or on GitHub

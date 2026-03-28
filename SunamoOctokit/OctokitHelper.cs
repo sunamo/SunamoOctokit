@@ -1,87 +1,111 @@
 namespace SunamoOctokit;
 
-public class OctokitHelper : IAuthentize<object>
+/// <summary>
+/// Helper class for interacting with GitHub API through Octokit library.
+/// </summary>
+public class OctokitHelper : IAuthenticate<object>
 {
-    public GitHubClient gitHubClient;
-    public object BasicAuth(string login, string password)
+    /// <summary>
+    /// Gets or sets the GitHub client instance used for API communication.
+    /// </summary>
+    public GitHubClient GitHubClient { get; set; } = null!;
+
+    /// <summary>
+    /// Authenticates using basic credentials (login and password).
+    /// </summary>
+    /// <param name="login">The GitHub login username.</param>
+    /// <param name="password">The GitHub password.</param>
+    /// <returns>Always returns null.</returns>
+    public object BasicAuthenticate(string login, string password)
     {
-        var basicAuth = new Credentials(login, password);
-        gitHubClient.Credentials = basicAuth;
-        return null;
+        var credentials = new Credentials(login, password);
+        GitHubClient.Credentials = credentials;
+        return null!;
     }
-    public object TokenAuth(string token)
+
+    /// <summary>
+    /// Authenticates using a personal access token.
+    /// </summary>
+    /// <param name="token">The GitHub personal access token.</param>
+    /// <returns>Always returns null.</returns>
+    public object TokenAuthenticate(string token)
     {
-        gitHubClient.Credentials = new Credentials(token);
-        return null;
+        GitHubClient.Credentials = new Credentials(token);
+        return null!;
     }
-    public
-        IAuthentize<object>
-        Init(string appName)
+
+    /// <summary>
+    /// Initializes the GitHub client with the specified application name.
+    /// </summary>
+    /// <param name="appName">The application name used in the product header for API requests.</param>
+    /// <returns>The current instance as <see cref="IAuthenticate{T}"/>.</returns>
+    public IAuthenticate<object> Initialize(string appName)
     {
-        gitHubClient = new GitHubClient(new ProductHeaderValue(appName));
-        //if (credentials.Login != null)
-        //{
-        //}
-        //else if (credentials.Token != null)
-        //{
-        //}
-        //else
-        //{
-        //    throw new Exception("Can't authentize, was not entered basic auth and token");
-        //}
+        GitHubClient = new GitHubClient(new ProductHeaderValue(appName));
         return this;
     }
 
     /// <summary>
-    /// When alsoPrivate, account is ignored
+    /// Gets repositories for the specified account or the current authenticated user.
+    /// When <paramref name="isIncludingPrivate"/> is true, fetches repositories for the specified account.
+    /// When false, fetches all repositories for the currently authenticated user.
     /// </summary>
-    /// <param name="account"></param>
-    /// <returns></returns>
+    /// <param name="account">The GitHub account name to fetch repositories for.</param>
+    /// <param name="isIncludingPrivate">When true, fetches repositories for the specified account. When false, fetches all repositories for the currently authenticated user.</param>
+    /// <returns>A read-only list of repositories.</returns>
     public
 #if ASYNC
         async Task<IReadOnlyList<Repository>>
 #else
-void
+        void
 #endif
-        GetAccountRepos(string account, bool alsoPrivate)
+        GetAccountRepositories(string account, bool isIncludingPrivate)
     {
-        IReadOnlyList<Repository> repos = [];
+        IReadOnlyList<Repository> repositories = [];
 
-        if (alsoPrivate)
+        if (isIncludingPrivate)
         {
-            repos =
+            repositories =
 #if ASYNC
             await
 #endif
-                gitHubClient.Repository.GetAllForUser(account);
+                GitHubClient.Repository.GetAllForUser(account);
         }
         else
         {
-            repos = await gitHubClient.Repository.GetAllForCurrent();
+            repositories =
+#if ASYNC
+                await
+#endif
+                GitHubClient.Repository.GetAllForCurrent();
         }
-        return repos;
+        return repositories;
     }
-    public ResultWithExceptionOctokit<Repository> CreateNewRepo(string repoName)
+
+    /// <summary>
+    /// Creates a new public repository on GitHub with MIT license.
+    /// </summary>
+    /// <param name="repositoryName">The name of the repository to create.</param>
+    /// <returns>A result containing the created repository or an exception message.</returns>
+    public ResultWithExceptionOctokit<Repository> CreateRepository(string repositoryName)
     {
-        Repository created = null;
-        // Create
         try
         {
-            var repository = new NewRepository(repoName)
+            var newRepository = new NewRepository(repositoryName)
             {
                 AutoInit = false,
                 Description = "",
                 LicenseTemplate = "mit",
                 Private = false
             };
-            var context = gitHubClient.Repository.Create(repository);
-            created = context.Result;
-            return new ResultWithExceptionOctokit<Repository>(created);
+            var createTask = GitHubClient.Repository.Create(newRepository);
+            var createdRepository = createTask.Result;
+            return new ResultWithExceptionOctokit<Repository>(createdRepository);
         }
-        catch (AggregateException e)
+        catch (AggregateException aggregateException)
         {
-            return new ResultWithExceptionOctokit<Repository>(Exceptions.TextOfExceptions(e));
-            //Console.WriteLine($"E: For some reason, the repository {RepositoryName}  can't be created. It may already exist. {e.Message}");
+            Console.WriteLine($"Failed to create repository: {aggregateException.Message}");
+            return new ResultWithExceptionOctokit<Repository>(Exceptions.TextOfExceptions(aggregateException));
         }
     }
 }
