@@ -54,11 +54,7 @@ public class OctokitHelper : IAuthenticate<object>
     /// <param name="isIncludingPrivate">When true, fetches repositories for the specified account. When false, fetches all repositories for the currently authenticated user.</param>
     /// <returns>A read-only list of repositories.</returns>
     public
-#if ASYNC
         async Task<IReadOnlyList<Repository>>
-#else
-        void
-#endif
         GetAccountRepositories(string account, bool isIncludingPrivate)
     {
         IReadOnlyList<Repository> repositories = [];
@@ -66,17 +62,13 @@ public class OctokitHelper : IAuthenticate<object>
         if (isIncludingPrivate)
         {
             repositories =
-#if ASYNC
             await
-#endif
                 GitHubClient.Repository.GetAllForUser(account);
         }
         else
         {
             repositories =
-#if ASYNC
                 await
-#endif
                 GitHubClient.Repository.GetAllForCurrent();
         }
         return repositories;
