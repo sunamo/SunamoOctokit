@@ -1,5 +1,10 @@
 # SunamoOctokit
 
+## Short description
+
+Obálka nad knihovnou Octokit pro práci s GitHub API, například třída OctokitHelper. Obsahuje Runner a testy.
+
+
 Wrapper around Octokit library
 
 ## Overview
